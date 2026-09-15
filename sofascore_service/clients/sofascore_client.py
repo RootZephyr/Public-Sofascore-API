@@ -10,7 +10,7 @@ class SofascoreClient:
 
     def __init__(self):
         self.session = requests.Session(
-            impersonate="chrome110",
+            impersonate="chrome",
             headers={
                 "Origin": "https://www.sofascore.com",
                 "Referer": "https://www.sofascore.com/",
