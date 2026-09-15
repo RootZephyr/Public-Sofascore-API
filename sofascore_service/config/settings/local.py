@@ -1,10 +1,20 @@
 """Local development settings."""
 
+import os
+
 from .base import *  # noqa: F401, F403
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+]
+
+# Allow Render's assigned hostname
+if os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
+    ALLOWED_HOSTS.append(os.environ["RENDER_EXTERNAL_HOSTNAME"])
 
 # Database - SQLite for local development
 DATABASES = {
@@ -35,4 +45,7 @@ LOGGING["root"]["level"] = "DEBUG"  # noqa: F405
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Celery - Use Redis if available, otherwise use eager mode
-CELERY_TASK_ALWAYS_EAGER = env.bool("CELERY_TASK_ALWAYS_EAGER", default=True)  # noqa: F405
+CELERY_TASK_ALWAYS_EAGER = env.bool(
+    "CELERY_TASK_ALWAYS_EAGER",
+    default=True,
+)  # noqa: F405
